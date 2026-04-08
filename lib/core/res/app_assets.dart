@@ -9,6 +9,6 @@ class AppAssets {
   static const String addActive = 'assets/icons/add_active.svg';
   static const String historyInActive = 'assets/icons/history_inactive.svg';
   static const String historyActive = 'assets/icons/history_active.svg';
-  static const String insightsInActive = 'assets/icons/insights_inactive.svg';
-  static const String insightsActive = 'assets/icons/insights_active.svg';
+  static const String insightsInActive = 'assets/icons/insight_inactive.svg';
+  static const String insightsActive = 'assets/icons/insight_active.svg';
 }
