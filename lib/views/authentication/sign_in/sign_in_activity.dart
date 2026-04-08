@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_expense_tracker/core/res/app_assets.dart';
+import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/res/app_strings.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
 import 'package:personal_expense_tracker/views/authentication/sign_in/controller/sign_in_controller.dart';
@@ -72,7 +73,7 @@ class SignInActivity extends GetView<SignInController> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: Colors.green)
+                                  borderSide: BorderSide(color: AppColors.primaryColor)
                               )
                             ),
                             validator: (value){
@@ -99,7 +100,7 @@ class SignInActivity extends GetView<SignInController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: Colors.green)
+                                    borderSide: BorderSide(color: AppColors.primaryColor)
                                 ),
                               suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
                             ),
@@ -137,10 +138,13 @@ class SignInActivity extends GetView<SignInController> {
                           const SizedBox(height: 24),
 
                           ElevatedButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                Get.offAllNamed(AppRoutes.homeActivity);
+                              },
                               style: ElevatedButton.styleFrom(
+                                elevation: 0,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
-                                backgroundColor: Colors.green,
+                                backgroundColor: AppColors.primaryColor,
                                 fixedSize: Size(MediaQuery.of(context).size.width, 48)
                               ),
                               child: Text(
@@ -178,11 +182,11 @@ class SignInActivity extends GetView<SignInController> {
                           AppStrings.signUpButtonText,
                           textAlign: .center,
                           style: TextStyle(
-                            color: Colors.green,
+                            color: AppColors.primaryColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             decoration: .underline,
-                            decorationColor: Colors.green,
+                            decorationColor: AppColors.primaryColor,
                             decorationStyle: TextDecorationStyle.dotted
                           ),
                         ),
