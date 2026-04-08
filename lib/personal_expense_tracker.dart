@@ -15,6 +15,7 @@ class PersonalExpenseTracker extends StatelessWidget {
       title: AppStrings.appName,
       initialRoute: AppRoutes.splashActivity,
       initialBinding: SplashBinding(),
+      defaultTransition: Transition.noTransition,
       getPages: AppPages.routes,
     );
   }
