@@ -11,4 +11,6 @@ class AppAssets {
   static const String historyActive = 'assets/icons/history_active.svg';
   static const String insightsInActive = 'assets/icons/insight_inactive.svg';
   static const String insightsActive = 'assets/icons/insight_active.svg';
+
+  static const String arrowTrendDownIcon = 'assets/icons/arrow_trend_down.svg';
 }
