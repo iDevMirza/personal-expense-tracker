@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/core/enums/snack_bar_type.dart';
 import 'package:personal_expense_tracker/core/res/app_assets.dart';
 import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/res/app_strings.dart';
+import 'package:personal_expense_tracker/core/utils/snack_bar/snack_bar_utils.dart';
+import 'package:personal_expense_tracker/core/utils/validation/validation_utils.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
 import 'package:personal_expense_tracker/views/authentication/sign_up/controller/sign_up_controller.dart';
 
@@ -29,7 +32,7 @@ class SignUpActivity extends GetView<SignUpController> {
                     width: 64,
                   ),
                   const SizedBox(height: 8),
-                  Text(
+                  const Text(
                       AppStrings.appName,
                       textAlign: .center,
                       style: TextStyle(
@@ -73,12 +76,10 @@ class SignUpActivity extends GetView<SignUpController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: AppColors.primaryColor)
+                                    borderSide: const BorderSide(color: AppColors.primaryColor)
                                 )
                             ),
-                            validator: (value){
-
-                            },
+                            validator: ValidationUtils.nameValidation,
                           ),
                           const SizedBox(height: 12),
 
@@ -99,12 +100,10 @@ class SignUpActivity extends GetView<SignUpController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: AppColors.primaryColor)
+                                    borderSide: const BorderSide(color: AppColors.primaryColor)
                                 )
                             ),
-                            validator: (value){
-
-                            },
+                            validator: ValidationUtils.emailValidation,
                           ),
                           const SizedBox(height: 12),
 
@@ -126,13 +125,11 @@ class SignUpActivity extends GetView<SignUpController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: AppColors.primaryColor)
+                                    borderSide:const BorderSide(color: AppColors.primaryColor)
                                 ),
                                 suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
                             ),
-                            validator: (value){
-
-                            },
+                            validator: ValidationUtils.passwordValidation,
                           ),
                           const SizedBox(height: 12),
 
@@ -154,25 +151,41 @@ class SignUpActivity extends GetView<SignUpController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: AppColors.primaryColor)
+                                    borderSide: const BorderSide(color: AppColors.primaryColor)
                                 ),
                                 suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
                             ),
                             validator: (value){
+                              if(value == null || value.isEmpty){
+                                return 'Please, confirm your password';
+                              } else if(controller.confirmPasswordController.text.trim() != controller.passwordController.text.trim()){
+                                return 'Password don\'t match';
+                              }
 
+                              return null;
                             },
                           ),
                           const SizedBox(height: 20),
 
                           ElevatedButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                if(controller.signUpFormKey.currentState!.validate()){
+
+                                } else{
+                                  SnackBarUtils.show(
+                                      context,
+                                      type: SnackBarType.ERROR,
+                                      message: 'Please, fill up all the fields.'
+                                  );
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
                                   backgroundColor: AppColors.primaryColor,
                                   fixedSize: Size(MediaQuery.of(context).size.width, 48)
                               ),
-                              child: Text(
+                              child: const Text(
                                 AppStrings.signUpButtonText,
                                 textAlign: .center,
                                 style: TextStyle(
@@ -203,7 +216,7 @@ class SignUpActivity extends GetView<SignUpController> {
 
                       InkWell(
                         onTap: () => Get.offNamed(AppRoutes.signInActivity),
-                        child: Text(
+                        child: const Text(
                           AppStrings.signInButtonText,
                           textAlign: .center,
                           style: TextStyle(
