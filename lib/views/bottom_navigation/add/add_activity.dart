@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/widgets/bottom_nav/custom_bottom_nav_bar.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/add/controller/add_controller.dart';
 
-class AddActivity extends StatelessWidget {
+class AddActivity extends GetView<AddController> {
   const AddActivity({super.key});
 
   @override
