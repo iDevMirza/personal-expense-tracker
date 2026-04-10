@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:personal_expense_tracker/core/res/app_assets.dart';
 import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/widgets/bottom_nav/custom_bottom_nav_bar.dart';
+import 'package:personal_expense_tracker/core/widgets/bottom_sheet/custom_modal_bottom_sheet.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/home/controller/home_controller.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/home/widgets/home_sheet_content.dart';
 
-class HomeActivity extends StatelessWidget {
+class HomeActivity extends GetView<HomeController> {
   const HomeActivity({super.key});
 
   @override
@@ -42,7 +45,15 @@ class HomeActivity extends StatelessWidget {
           ),
           actions: [
             IconButton(
-                onPressed: (){},
+                onPressed: (){
+                  CustomModalBottomSheet.show(
+                     context,
+                     bottomSheetContent: HomeSheetContent(
+                       onTheme: (value){},
+                       onLogout: (){},
+                     )
+                  );
+                },
                 icon: Icon(
                     Icons.settings,
                     color: Colors.white,
