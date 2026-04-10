@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/widgets/bottom_nav/custom_bottom_nav_bar.dart';
