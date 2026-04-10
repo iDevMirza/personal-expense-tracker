@@ -3,9 +3,9 @@ import 'package:personal_expense_tracker/services/local_storage_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AuthRepository {
-  final LocalStorageService storage;
+  final LocalStorageService storage = LocalStorageService.instance;
 
-  AuthRepository(this.storage);
+  AuthRepository();
 
   Future<UserModel?> getCurrentSession() async {
     final db = await storage.database;
@@ -39,7 +39,7 @@ class AuthRepository {
     return user;
   }
 
-  Future<UserModel?> register(String name, String email, String password) async {
+  Future<UserModel?> register({required String name, required String email, required String password}) async {
     final db = await storage.database;
 
     final existing = await db.query(
