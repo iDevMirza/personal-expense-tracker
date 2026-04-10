@@ -5,8 +5,12 @@ import 'package:personal_expense_tracker/views/authentication/sign_in/sign_in_ac
 import 'package:personal_expense_tracker/views/authentication/sign_up/binding/sign_up_binding.dart';
 import 'package:personal_expense_tracker/views/authentication/sign_up/sign_up_activity.dart';
 import 'package:personal_expense_tracker/views/bottom_navigation/add/add_activity.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/add/binding/add_binding.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/history/binding/history_binding.dart';
 import 'package:personal_expense_tracker/views/bottom_navigation/history/history_activity.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/home/binding/home_binding.dart';
 import 'package:personal_expense_tracker/views/bottom_navigation/home/home_activity.dart';
+import 'package:personal_expense_tracker/views/bottom_navigation/insights/binding/insights_binding.dart';
 import 'package:personal_expense_tracker/views/bottom_navigation/insights/insights_activity.dart';
 import 'package:personal_expense_tracker/views/intro/splash/binding/splash_binding.dart';
 import 'package:personal_expense_tracker/views/intro/splash/splash_activity.dart';
@@ -35,25 +39,25 @@ class AppPages {
     GetPage(
         name: AppRoutes.homeActivity,
         page: () => HomeActivity(),
-        // binding: SignUpBinding()
+        binding: HomeBinding()
     ),
 
     GetPage(
         name: AppRoutes.addActivity,
         page: () => AddActivity(),
-        // binding: SignUpBinding()
+        binding: AddBinding()
     ),
 
     GetPage(
         name: AppRoutes.historyActivity,
         page: () => HistoryActivity(),
-        // binding: SignUpBinding()
+        binding: HistoryBinding()
     ),
 
     GetPage(
         name: AppRoutes.insightsActivity,
         page: () => InsightsActivity(),
-        // binding: SignUpBinding()
+        binding: InsightsBinding()
     )
   ];
 }
