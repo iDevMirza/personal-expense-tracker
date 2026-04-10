@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:personal_expense_tracker/core/res/app_assets.dart';
 import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/res/app_strings.dart';
+import 'package:personal_expense_tracker/core/utils/validation/validation_utils.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
 import 'package:personal_expense_tracker/views/authentication/sign_in/controller/sign_in_controller.dart';
 
@@ -29,7 +30,7 @@ class SignInActivity extends GetView<SignInController> {
                     width: 64,
                   ),
                   const SizedBox(height: 8),
-                  Text(
+                  const Text(
                       AppStrings.appName,
                       textAlign: .center,
                       style: TextStyle(
@@ -73,12 +74,10 @@ class SignInActivity extends GetView<SignInController> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: AppColors.primaryColor)
+                                  borderSide: const BorderSide(color: AppColors.primaryColor)
                               )
                             ),
-                            validator: (value){
-                              
-                            },
+                            validator: ValidationUtils.emailValidation,
                           ),
                           const SizedBox(height: 12),
 
@@ -100,46 +99,19 @@ class SignInActivity extends GetView<SignInController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: AppColors.primaryColor)
+                                    borderSide: const BorderSide(color: AppColors.primaryColor)
                                 ),
                               suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
                             ),
-                            validator: (value){
-
-                            },
-                          ),
-                          const SizedBox(height: 20),
-
-                          Row(
-                            mainAxisAlignment: .start,
-                            children: [
-                              SizedBox(
-                                height: 24, width: 24,
-                                child: Checkbox(
-                                    value: false,
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide(color: Colors.black.withValues(alpha: 0.4)),
-                                        borderRadius: BorderRadius.circular(4)
-                                    ),
-                                    onChanged: (value){}
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppStrings.rememberMeCheckText,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600
-                                )
-                              )
-                            ],
+                            validator: ValidationUtils.passwordValidation,
                           ),
                           const SizedBox(height: 24),
 
                           ElevatedButton(
                               onPressed: (){
-                                Get.offAllNamed(AppRoutes.homeActivity);
+                                if(controller.signInFormKey.currentState!.validate()){
+                                  Get.offAllNamed(AppRoutes.homeActivity);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
@@ -147,7 +119,7 @@ class SignInActivity extends GetView<SignInController> {
                                 backgroundColor: AppColors.primaryColor,
                                 fixedSize: Size(MediaQuery.of(context).size.width, 48)
                               ),
-                              child: Text(
+                              child: const Text(
                                 AppStrings.signInButtonText,
                                 textAlign: .center,
                                 style: TextStyle(
@@ -178,7 +150,7 @@ class SignInActivity extends GetView<SignInController> {
 
                       InkWell(
                         onTap: () => Get.offNamed(AppRoutes.signUpActivity),
-                        child: Text(
+                        child: const Text(
                           AppStrings.signUpButtonText,
                           textAlign: .center,
                           style: TextStyle(
