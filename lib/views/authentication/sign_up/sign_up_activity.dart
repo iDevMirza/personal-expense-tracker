@@ -6,6 +6,7 @@ import 'package:personal_expense_tracker/core/res/app_colors.dart';
 import 'package:personal_expense_tracker/core/res/app_strings.dart';
 import 'package:personal_expense_tracker/core/utils/snack_bar/snack_bar_utils.dart';
 import 'package:personal_expense_tracker/core/utils/validation/validation_utils.dart';
+import 'package:personal_expense_tracker/core/widgets/buttons/custom_loading_button.dart';
 import 'package:personal_expense_tracker/routes/app_routes.dart';
 import 'package:personal_expense_tracker/views/authentication/sign_up/controller/sign_up_controller.dart';
 
@@ -107,93 +108,102 @@ class SignUpActivity extends GetView<SignUpController> {
                           ),
                           const SizedBox(height: 12),
 
-                          TextFormField(
-                            obscureText: true,
-                            controller: controller.passwordController,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                                labelText: AppStrings.passwordFieldLabel,
-                                hintText: AppStrings.passwordFieldHint,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
+                          Obx(() {
+                              return TextFormField(
+                                obscureText: controller.isObscurePassword.value,
+                                controller: controller.passwordController,
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                    labelText: AppStrings.passwordFieldLabel,
+                                    hintText: AppStrings.passwordFieldHint,
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide:const BorderSide(color: AppColors.primaryColor)
+                                    ),
+                                    suffixIcon: IconButton(onPressed: (){
+                                      controller.checkPasswordVisibility();
+                                    }, icon: controller.isObscurePassword.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility))
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide:const BorderSide(color: AppColors.primaryColor)
-                                ),
-                                suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
-                            ),
-                            validator: ValidationUtils.passwordValidation,
+                                validator: ValidationUtils.passwordValidation,
+                              );
+                            }
                           ),
                           const SizedBox(height: 12),
 
-                          TextFormField(
-                            obscureText: true,
-                            controller: controller.confirmPasswordController,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.done,
-                            decoration: InputDecoration(
-                                labelText: AppStrings.confirmPasswordFieldLabel,
-                                hintText: AppStrings.confirmPasswordFieldHint,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: AppColors.primaryColor)
-                                ),
-                                suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility))
+                          Obx(() => TextFormField(
+                              obscureText: controller.isObscureConfirmPassword.value,
+                              controller: controller.confirmPasswordController,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.done,
+                              decoration: InputDecoration(
+                                  labelText: AppStrings.confirmPasswordFieldLabel,
+                                  hintText: AppStrings.confirmPasswordFieldHint,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.4))
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(color: AppColors.primaryColor)
+                                  ),
+                                  suffixIcon: IconButton(onPressed: (){
+                                    controller.checkConfirmPasswordVisibility();
+                                  }, icon: controller.isObscureConfirmPassword.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility))
+                              ),
+                              validator: (value){
+                                if(value == null || value.isEmpty){
+                                  return 'Please, confirm your password';
+                                } else if(controller.confirmPasswordController.text.trim() != controller.passwordController.text.trim()){
+                                  return 'Password don\'t match';
+                                }
+                            
+                                return null;
+                              },
                             ),
-                            validator: (value){
-                              if(value == null || value.isEmpty){
-                                return 'Please, confirm your password';
-                              } else if(controller.confirmPasswordController.text.trim() != controller.passwordController.text.trim()){
-                                return 'Password don\'t match';
-                              }
-
-                              return null;
-                            },
                           ),
                           const SizedBox(height: 20),
 
-                          ElevatedButton(
-                              onPressed: (){
-                                if(controller.signUpFormKey.currentState!.validate()){
-
-                                } else{
-                                  SnackBarUtils.show(
-                                      context,
-                                      type: SnackBarType.ERROR,
-                                      message: 'Please, fill up all the fields.'
-                                  );
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
-                                  backgroundColor: AppColors.primaryColor,
-                                  fixedSize: Size(MediaQuery.of(context).size.width, 48)
-                              ),
-                              child: const Text(
-                                AppStrings.signUpButtonText,
-                                textAlign: .center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14
+                          Obx(() => controller.isLoading.value ? const CustomLoadingButton() : ElevatedButton(
+                                onPressed: (){
+                                  if(controller.signUpFormKey.currentState!.validate()){
+                                    controller.signUpUser();
+                                  } else{
+                                    SnackBarUtils.show(
+                                        context,
+                                        type: SnackBarType.ERROR,
+                                        message: 'Please, fill up all the fields.'
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
+                                    backgroundColor: AppColors.primaryColor,
+                                    fixedSize: Size(MediaQuery.of(context).size.width, 48)
                                 ),
-                              )
+                                child: const Text(
+                                  AppStrings.signUpButtonText,
+                                  textAlign: .center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14
+                                  ),
+                                )
+                            ),
                           )
                         ],
                       ),
