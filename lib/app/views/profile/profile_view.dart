@@ -15,8 +15,9 @@ class ProfileView extends GetView<MainController> {
     final themeService = Get.find<ThemeService>();
 
     return SafeArea(
+      top: false,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
+        padding: const EdgeInsetsDirectional.only(start: 20, top: 56, end: 20, bottom: 20),
         child: Column(
           children: [
             Container(
@@ -40,14 +41,16 @@ class ProfileView extends GetView<MainController> {
               ),
             ),
             const SizedBox(height: 16),
+
             Obx(() => Text(controller.user.value?.username ?? '',
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
             Obx(() => Text(controller.user.value?.email ?? '',
                 style: TextStyle(color: Theme.of(context).hintColor))),
             const SizedBox(height: 24),
+
             Obx(() => Row(children: [
               _stat(context, Icons.attach_money,
-                  '\$${controller.totalAllTime.toStringAsFixed(0)}', 'Total Spent'),
+                  '£${controller.totalAllTime.toStringAsFixed(0)}', 'Total Spent'),
               const SizedBox(width: 10),
               _stat(context, Icons.calendar_today_outlined,
                   '${controller.expenses.length}', 'Transactions'),
@@ -55,10 +58,11 @@ class ProfileView extends GetView<MainController> {
               _stat(
                   context,
                   Icons.trending_up,
-                  '\$${(controller.expenses.isEmpty ? 0 : controller.totalAllTime / controller.expenses.length).toStringAsFixed(0)}',
+                  '£${(controller.expenses.isEmpty ? 0 : controller.totalAllTime / controller.expenses.length).toStringAsFixed(0)}',
                   'Avg/Transaction'),
             ])),
             const SizedBox(height: 16),
+
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -79,15 +83,16 @@ class ProfileView extends GetView<MainController> {
                         decoration: InputDecoration(
                           hintText: controller.user.value?.monthlyBudget != null &&
                               controller.user.value!.monthlyBudget > 0
-                              ? '\$${controller.user.value!.monthlyBudget.toStringAsFixed(0)}'
+                              ? '£${controller.user.value!.monthlyBudget.toStringAsFixed(0)}'
                               : 'Set budget',
-                          prefixText: '\$ ',
+                          prefixText: '£ ',
                           fillColor: Theme.of(context).scaffoldBackgroundColor,
                           filled: true,
                         ),
                       ),
                     ),
                     const SizedBox(width: 8),
+
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
@@ -112,7 +117,7 @@ class ProfileView extends GetView<MainController> {
               ),
             ),
             const SizedBox(height: 12),
-            // Theme toggle
+
             Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
@@ -129,10 +134,8 @@ class ProfileView extends GetView<MainController> {
                 onChanged: (_) => themeService.toggle(),
               )),
             ),
-            const SizedBox(height: 8),
-            _tile(context, Icons.settings_outlined, 'Settings', () {}),
-            _tile(context, Icons.shield_outlined, 'Privacy', () {}),
             const SizedBox(height: 16),
+            
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
