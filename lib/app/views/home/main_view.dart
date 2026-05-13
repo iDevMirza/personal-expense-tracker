@@ -13,6 +13,7 @@ class MainView extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
+
     final pages = const [
       HomeView(),
       HistoryView(),
@@ -28,18 +29,18 @@ class MainView extends GetView<MainController> {
       )),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         onPressed: () => Get.toNamed(Routes.addExpense),
         child: const Icon(Icons.add, color: Colors.white, size: 32),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const _BottomBar(),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 }
 
-class _BottomBar extends StatelessWidget {
-  const _BottomBar();
+class BottomBar extends StatelessWidget {
+  const BottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _BottomBar extends StatelessWidget {
       shape: const CircularNotchedRectangle(),
       notchMargin: 8,
       child: Obx(() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _navItem(c, 0, Icons.home_outlined, 'Home'),
           _navItem(c, 1, Icons.access_time, 'History'),
@@ -68,11 +69,6 @@ class _BottomBar extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: selected
-            ? BoxDecoration(
-            border: Border.all(color: AppColors.primary),
-            borderRadius: BorderRadius.circular(12))
-            : null,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
