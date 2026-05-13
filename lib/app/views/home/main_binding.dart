@@ -4,6 +4,8 @@ import 'main_controller.dart';
 class MainBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(MainController());
+    if (!Get.isRegistered<MainController>()) {
+      Get.put(MainController(), permanent: true);
+    }
   }
 }
