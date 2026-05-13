@@ -53,17 +53,17 @@ class ExpenseTile extends StatelessWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          color: AppColors.error.withOpacity(0.1),
+          color: AppColors.error.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(14),
         ),
         child: const Icon(Icons.delete, color: AppColors.error),
       ),
       child: Container(
         margin: const EdgeInsets.only(bottom: 8),
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
@@ -123,7 +123,7 @@ class ExpenseTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('\$${expense.amount.toStringAsFixed(2)}',
+                Text('£${expense.amount.toStringAsFixed(2)}',
                     style: const TextStyle(fontWeight: FontWeight.bold)),
                 if (showCategoryLabel)
                   Text(expense.category,
