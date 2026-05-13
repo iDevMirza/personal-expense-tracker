@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/app/views/home/main_controller.dart';
 import '../../data/services/auth_service.dart';
 import '../../routes/app_routes.dart';
 
@@ -28,6 +29,9 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       await _auth.login(emailCtrl.text.trim(), passwordCtrl.text);
+      if (!Get.isRegistered<MainController>()) {
+        Get.put(MainController(), permanent: true);
+      }
       Get.offAllNamed(Routes.main);
     } catch (e) {
       _snack('Login failed', _friendlyError(e));
