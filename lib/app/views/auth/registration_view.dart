@@ -8,11 +8,12 @@ class RegisterView extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          padding: const EdgeInsetsDirectional.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -22,28 +23,48 @@ class RegisterView extends GetView<AuthController> {
               Text('Start managing your money smarter',
                   style: TextStyle(color: Theme.of(context).hintColor)),
               const SizedBox(height: 32),
+
               const Text('Username', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               TextField(
                 controller: controller.usernameCtrl,
-                decoration: const InputDecoration(hintText: 'your.username'),
+                decoration: const InputDecoration(hintText: 'Enter your username'),
               ),
               const SizedBox(height: 16),
+
               const Text('Email', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               TextField(
                 controller: controller.emailCtrl,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: 'you@example.com'),
+                decoration: const InputDecoration(hintText: 'Enter your email'),
               ),
               const SizedBox(height: 16),
-              const Text('Password', style: TextStyle(fontWeight: FontWeight.w600)),
+
+              const Row(
+                mainAxisAlignment: .start,
+                children: [
+                  Text('Password', style: TextStyle(fontWeight: FontWeight.w600)),
+                  SizedBox(width: 8),
+                  Tooltip(
+                    message: 'Password must be at least 6 characters',
+                    triggerMode: TooltipTriggerMode.tap,
+                    showDuration: Duration(seconds: 3),
+                    waitDuration: Duration.zero,
+                    child: Icon(
+                      Icons.info_outline,
+                      size: 20,
+                      color: AppColors.error,
+                    ),
+                  )
+                ],
+              ),
               const SizedBox(height: 8),
               Obx(() => TextField(
                 controller: controller.passwordCtrl,
                 obscureText: controller.obscurePassword.value,
                 decoration: InputDecoration(
-                  hintText: 'At least 6 characters',
+                  hintText: 'Enter your password',
                   suffixIcon: IconButton(
                     icon: Icon(controller.obscurePassword.value
                         ? Icons.visibility_off
