@@ -9,17 +9,19 @@ class LoginView extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          padding: const EdgeInsetsDirectional.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
               Container(
                 width: 64,
                 height: 64,
+                margin: const EdgeInsetsDirectional.only(top: 56),
                 decoration: BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(16),
@@ -28,27 +30,29 @@ class LoginView extends GetView<AuthController> {
                     color: Colors.white, size: 32),
               ),
               const SizedBox(height: 24),
-              const Text('Welcome Back 👋',
+              const Text('Welcome Back',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               Text('Sign in to continue tracking your expenses',
                   style: TextStyle(color: Theme.of(context).hintColor)),
               const SizedBox(height: 32),
+
               const Text('Email', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               TextField(
                 controller: controller.emailCtrl,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: 'you@example.com'),
+                decoration: const InputDecoration(hintText: 'Enter your email'),
               ),
               const SizedBox(height: 16),
+
               const Text('Password', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               Obx(() => TextField(
                 controller: controller.passwordCtrl,
                 obscureText: controller.obscurePassword.value,
                 decoration: InputDecoration(
-                  hintText: '••••••••',
+                  hintText: 'Enter your password',
                   suffixIcon: IconButton(
                     icon: Icon(controller.obscurePassword.value
                         ? Icons.visibility_off
