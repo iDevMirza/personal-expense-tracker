@@ -4,7 +4,7 @@ import 'package:personal_expense_tracker/app/core/dependency/inject_dependency.d
 import 'package:personal_expense_tracker/personal_expense_tracker.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await InjectDependency.init();
