@@ -426,7 +426,7 @@ class _SearchBoxState extends State<_SearchBox> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -439,6 +439,7 @@ class _SearchBoxState extends State<_SearchBox> {
         controller: widget.controller,
         onChanged: widget.onChanged,
         textInputAction: TextInputAction.search,
+        style: const TextStyle(fontSize: 14),
         decoration: InputDecoration(
           hintText: 'Search for a place...',
           prefixIcon: const Icon(Icons.search),
@@ -462,7 +463,7 @@ class _SearchBoxState extends State<_SearchBox> {
                   : null,
           border: InputBorder.none,
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).cardColor,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
             vertical: 14,
@@ -492,7 +493,7 @@ class _SearchResultsList extends StatelessWidget {
       constraints: const BoxConstraints(maxHeight: 280),
       margin: const EdgeInsets.only(top: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -517,7 +518,6 @@ class _SearchResultsList extends StatelessWidget {
                       error!,
                       style: const TextStyle(
                         fontSize: 13,
-                        color: Colors.black54,
                       ),
                     ),
                   ),
@@ -544,7 +544,6 @@ class _SearchResultsList extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 13,
-                      color: Colors.black87,
                     ),
                   ),
                   onTap: () => onSelected(result),
