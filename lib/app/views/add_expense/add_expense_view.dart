@@ -24,7 +24,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('\$',
+                Text('£',
                     style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
