@@ -1,28 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+
 import '../models/expense_model.dart';
 
 class ExpenseService extends GetxService {
-  final _firestore = FirebaseFirestore.instance;
-  CollectionReference get _ref => _firestore.collection('expenses');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<List<ExpenseModel>> watchUserExpenses(String userId) {
-    return _ref
-        .where('userId', isEqualTo: userId)
+  CollectionReference<Map<String, dynamic>> _expenseCollection(String uid) {
+    return _firestore.collection('users').doc(uid).collection('expenses');
+  }
+
+  Stream<List<ExpenseModel>> watchUserExpenses(String uid) {
+    return _expenseCollection(uid)
         .orderBy('date', descending: true)
         .snapshots()
-        .map((snap) => snap.docs.map(ExpenseModel.fromDoc).toList());
+        .map((snapshot) {
+      return snapshot.docs.map(ExpenseModel.fromFirestore).toList();
+    });
   }
 
-  Future<void> addExpense(ExpenseModel expense) async {
-    await _ref.add(expense.toMap());
+  Future<DocumentReference<Map<String, dynamic>>> addExpense({
+    required String uid,
+    required ExpenseModel expense,
+  }) {
+    return _expenseCollection(uid).add({
+      ...expense.toFirestore(),
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 
-  Future<void> updateExpense(ExpenseModel expense) async {
-    await _ref.doc(expense.id).update(expense.toMap());
+  Future<void> updateExpense({
+    required String uid,
+    required ExpenseModel expense,
+  }) {
+    if (expense.id.isEmpty) {
+      throw ArgumentError('Expense id is required for update');
+    }
+
+    return _expenseCollection(uid).doc(expense.id).update(expense.toFirestore());
   }
 
-  Future<void> deleteExpense(String id) async {
-    await _ref.doc(id).delete();
+  Future<void> deleteExpense({
+    required String uid,
+    required String expenseId,
+  }) {
+    return _expenseCollection(uid).doc(expenseId).delete();
   }
 }
