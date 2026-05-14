@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:personal_expense_tracker/core/res/app_strings.dart';
-import 'package:personal_expense_tracker/routes/app_pages.dart';
-import 'package:personal_expense_tracker/routes/app_routes.dart';
-import 'package:personal_expense_tracker/views/intro/splash/binding/splash_binding.dart';
+import 'package:personal_expense_tracker/app/core/services/theme_service.dart';
+import 'package:personal_expense_tracker/app/core/theme/app_theme.dart';
+import 'package:personal_expense_tracker/app/routes/app_pages.dart';
+import 'package:personal_expense_tracker/app/routes/app_routes.dart';
 
 class PersonalExpenseTracker extends StatelessWidget {
   const PersonalExpenseTracker({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    final themeService = Get.find<ThemeService>();
+    return Obx(() => GetMaterialApp(
+      title: 'Personal Expense Tracker',
       debugShowCheckedModeBanner: false,
-      title: AppStrings.appName,
-      initialRoute: AppRoutes.splashActivity,
-      initialBinding: SplashBinding(),
-      defaultTransition: Transition.noTransition,
-      getPages: AppPages.routes,
-    );
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: themeService.themeMode,
+      initialRoute: Routes.splash,
+      getPages: AppPages.pages,
+    ));
   }
 }
